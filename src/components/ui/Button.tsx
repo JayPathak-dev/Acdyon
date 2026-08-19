@@ -1,12 +1,20 @@
 // src/components/ui/Button.tsx
-import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../../lib/utils';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  className?: string;
+  'aria-label'?: string;
+  'aria-pressed'?: boolean;
+  'aria-expanded'?: boolean;
+  'aria-controls'?: string;
+  id?: string;
 }
 
 const variantStyles = {
@@ -27,12 +35,18 @@ export function Button({
   size = 'md',
   className,
   children,
-  ...props
+  onClick,
+  type = 'button',
+  disabled,
+  ...rest
 }: ButtonProps) {
   return (
     <motion.button
-      whileHover={{ y: -1, scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      whileHover={disabled ? {} : { y: -1, scale: 1.01 }}
+      whileTap={disabled ? {} : { scale: 0.98 }}
       transition={{ duration: 0.15, ease: 'easeOut' }}
       className={cn(
         'inline-flex items-center justify-center font-medium',
@@ -44,7 +58,7 @@ export function Button({
         sizeStyles[size],
         className
       )}
-      {...(props as React.ComponentProps<typeof motion.button>)}
+      {...rest}
     >
       {children}
     </motion.button>

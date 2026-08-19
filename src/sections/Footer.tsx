@@ -3,10 +3,8 @@ import React from 'react';
 import { Zap, Code2, Link2, MessageSquare } from 'lucide-react';
 import { smoothScrollTo } from '../lib/utils';
 
-const footerNav = {
-  Product: ['demo', 'features', 'workflow', 'pricing'],
-  Resources: ['#', '#', '#'],
-};
+
+
 
 const productLabels: Record<string, string> = {
   demo: 'Product',
